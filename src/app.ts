@@ -3,7 +3,7 @@ class Department {
     // private name: string;
     private employees: string[] = [];
 
-    constructor(private id: string, public name: string) {
+    constructor(private readonly id: string, public name: string) {
         // this.id = id;
         // this.name = n
     }
@@ -30,3 +30,32 @@ accounting.printEmployeeInformation();
 
 // const accountingCopy = { name: 'DUMMY', describe: accounting.describe };
 // accountingCopy.describe();
+
+class ITDepartment extends Department {
+    admins: string[]
+    constructor( id: string, admins: string[]){
+        super(id, 'IT');
+        this.admins = admins;
+    }
+};
+
+const it = new ITDepartment('d2', ['Max', 'Manu'])
+console.log('it' , it);
+
+class AccountingDepartment extends Department {
+    constructor( id: string , private reports: string[]){
+        super( id, 'Accounting Department');
+    }
+
+    addReport(text: string){
+        this.reports.push(text);
+    }
+
+    printReports(){
+        console.log('reports' , this.reports);
+    }
+}
+
+const accountingDepartment = new AccountingDepartment('d2', []);
+accountingDepartment.addReport('Something went wrong...')
+accountingDepartment.printReports()
