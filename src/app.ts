@@ -1,10 +1,10 @@
-class Department {
+abstract class Department {
     static fiscalYear = 2024;
     // private id: string,
     // private name: string;
     protected employees: string[] = [];
 
-    constructor(private readonly id: string, public name: string) {
+    constructor(protected readonly id: string, public name: string) {
         // this.id = id;
         // this.name = n
         // console.log(Department.fiscalYear);
@@ -14,9 +14,7 @@ class Department {
         return {name: name};
     }
 
-    describe(this: Department) {
-        console.log(`Department (${this.id}): ${this.name}`);
-    }
+    abstract describe(this: Department): void;
 
     addEmploye(employee: string){
         this.employees.push(employee);
@@ -28,11 +26,11 @@ class Department {
     }
 };
 
-const accounting = new Department('d1', 'Accounting');
+// const accounting = new Department('d1', 'Accounting');
 // accounting.addEmploye('Max');
 // accounting.addEmploye('Manu');
-accounting.describe();
-accounting.printEmployeeInformation();
+// accounting.describe();
+// accounting.printEmployeeInformation();
 
 // const accountingCopy = { name: 'DUMMY', describe: accounting.describe };
 // accountingCopy.describe();
@@ -42,6 +40,10 @@ class ITDepartment extends Department {
     constructor( id: string, admins: string[]){
         super(id, 'IT');
         this.admins = admins;
+    }
+
+    describe() {
+        console.log('IT Department- ID' + this.id);
     }
 };
 
@@ -70,6 +72,10 @@ class AccountingDepartment extends Department {
         this.lastReport = reports[0]
     }
 
+    describe(){
+        console.log('Accounting - Department - ID' + this.id);
+    }
+
     addEmployee(name: string) {
         if(name === 'Max'){
             return;
@@ -93,7 +99,8 @@ const accountingDepartment = new AccountingDepartment('d2', []);
 accountingDepartment.mostRecentReport = 'Your End Report';
 accountingDepartment.addReport('Something went wrong...')
 console.log('accountingDepartment' , accountingDepartment.mostRecentReport);
-accountingDepartment.printReports();
 accountingDepartment.addEmployee('Max');
 accountingDepartment.addEmployee('Manu');
-accountingDepartment.printEmployeeInformation();
+// accountingDepartment.printReports();
+// accountingDepartment.printEmployeeInformation();
+accountingDepartment.describe();
